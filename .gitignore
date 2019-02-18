@@ -1,0 +1,25 @@
+.cache/
+.__pycache__/
+.mypy_cache/
+.idea/
+*.swp
+*.py[co]
+.coverage
+.tox/
+.pytest_cache/
+*.log
+*.orig
+.virtualenv
+.vscode
+*.DS_Store
+
+# Docker volumes
+volume_data/
+
+# Enviroment variables
+.env
+
+# Temporary folder for patch models
+temp/
+
+services/artifacts/

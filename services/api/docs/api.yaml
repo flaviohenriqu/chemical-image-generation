@@ -1,0 +1,76 @@
+openapi: 3.0.2
+info:
+  title: API to Chemical Image Generation
+  version: '0.1'
+  contact:
+    name: Flavio Santos
+    url: 'https://github.com/flaviohenriqu'
+    email: flaviohenriqu@gmail.com
+tags:
+  - name: Image
+    description: Images endpoints
+
+servers:
+  - url: /api
+paths:
+  /ping:
+    get:
+      summary: Return Ping Pong
+      operationId: api.image.ping_pong
+      responses:
+        '200':
+          description: Ping Pong!
+          content:
+            'text/plain':
+              schema:
+                type: string
+  /image:
+    get:
+      tags:
+        - Image
+      summary: Get chemical image
+      operationId: api.image.get_image
+      parameters:
+        - in: header
+          name: Smiles
+          description: Chemical formula in text
+          required: true
+          schema:
+            type: string
+          example: 'CC1=CC=C(C=C1)C2=CC(=NN2C3=CC=C(C=C3)S(=O)(=O)N)C(F)(F)F'
+        - in: query
+          name: image_type
+          description: Image type
+          schema:
+            type: string
+            enum: [png, svg]
+            default: svg
+          example: svg
+      responses:
+        '200':
+          description: Image response
+          content:
+            image/png:
+              schema:
+                type: string
+                format: binary
+            application/xml:
+              schema: {}
+components:
+  schemas:
+    Default:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+  responses:
+    404NotFound:
+      description: The specified resource was not found.
+    GenericError:
+      description: An error occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Default'

@@ -1,0 +1,18 @@
+version: '3.6'
+
+services:
+
+  app:
+    build:
+      context: ./services
+      dockerfile: Dockerfile-dev
+    volumes:
+      - './services:/usr/src/app'
+    ports:
+      - 5001:5000
+    environment:
+      - FLASK_ENV=development
+      - APP_SETTINGS=config.DevelopmentConfig
+      - DATABASE_URL=postgres://postgres:postgres@insta-db:5432/insta_broker_dev
+      - DATABASE_TEST_URL=postgres://postgres:postgres@insta-db:5432/insta_broker_test
+      - SECRET_KEY=my_precious
